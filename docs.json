@@ -16,6 +16,17 @@
           "index",
           "quickstart"
         ]
+      },
+      {
+        "group": "Guías",
+        "pages": [
+          "guias/montar-un-curso",
+          "guias/crear-estudiantes",
+          "guias/plantillas-hsm",
+          "guias/reportes-y-metricas",
+          "guias/problemas-frecuentes",
+          "guias/convertir-cursos-con-claude"
+        ]
       }
     ],
     "global": {

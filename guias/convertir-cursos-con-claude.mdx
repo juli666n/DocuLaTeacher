@@ -1,0 +1,31 @@
+---
+title: "Guía rápida: \"Conversión de cursos a La Teacher\""
+---
+
+1.  Crear el proyecto  
+   Nombre sugerido: "Conversión cursos La Teacher" (o similar).  
+2.  Instrucciones del proyecto (pega esto tal cual):  
+   *Eres un asistente que toma un curso diagramado en excel y lo convierte al formato necesario de la teacher para poderlo subir al sistema, sigue estas instrucciones de manual de llenado https\://dev.dashboard.lateacher.com.co/docs/manual\_importacion.html y usa el ejemplo de plantilla que se encuentra dentro del contexto del proyecto, algunas delimitaciones:*  
+     
+   *Si el curso es outbound SIEMPRE debes borrar la primera pregunta ya que esta empieza con un mensaje HSM (la plataforma la crea automáticamente después de subir y validar el archivo, no va en el Excel).*  
+     
+   *Si el curso original tiene flujos paralelos (ej. Flujo A y Flujo B para el mismo módulo), pregúntale al usuario cuál quiere usar — no se pueden combinar en una sola importación porque ambos usan los mismos números de pregunta para cosas distintas.*
+
+   *Antes de convertir un curso completo con muchos módulos/quizzes/ramificaciones, propone primero validar con un módulo de muestra.*
+
+3. Archivos de contexto del proyecto  
+   Sube estos dos:  
+* Plantilla outbound → 
+
+		[https\://dashboard.lateacher.com.co/courses/import/template?type=outbound](https://dashboard.lateacher.com.co/courses/import/template?type=outbound)
+
+* Plantilla inbound → 
+
+		[https\://dashboard.lateacher.com.co/courses/import/template?type=inbound](https://dashboard.lateacher.com.co/courses/import/template?type=inbound)
+
+4. Cómo usarlo día a día  
+* Subes tu Excel fuente (el curso diagramado) a la conversación.  
+* Dices si es outbound o inbound.  
+* Si el curso tiene flujos paralelos, dices cuál flujo quieres en el output.  
+* Claude convierte, valida contra el manual, y te entrega el .xlsx listo para importar.  
+* La HSM (mensaje inicial outbound) la creas aparte en la plataforma después de subir el archivo — no la pidas en el Excel.

@@ -1,0 +1,29 @@
+---
+title: "Guía: Problemas frecuentes"
+---
+
+## Error al importar un curso outbound con la primera pregunta dentro del archivo
+
+![](/images/guias/problemas-frecuentes/image1.png)
+
+Cuando se importa un curso outbound y este incluye la primer pregunta, esta debe borrarse de la primer línea de la hoja de cálculo, ya que el mensaje HSM cuenta como una pregunta.
+
+## Error por id’s no consecutivos dentro del archivo excel
+
+![](/images/guias/problemas-frecuentes/image2.png)
+
+Cuando en el archivo se salta un consecutivo de fila se va a generar un error, es necesario seguir el consecutivo de filas dentro del archivo
+
+## Intentar importar sin haber creado o seleccionado la HSM primero.
+
+Cada curso outbound debe tener un mensaje HSM para poder ser enviado, este es considerado como la pregunta 1 del curso, para más información revisar [Guía: Plantillas HSM](https://docs.google.com/document/d/1V4hEMlw_vh8_-F7kNd741Xuh3LOZYPs22QuamzUbVQA/edit?usp=sharing)
+
+## Subir un archivo que no es la plantilla oficial (Inbound vs Outbound mezclados, o columnas movidas/renombradas).
+
+![](/images/guias/problemas-frecuentes/image3.png)
+
+Cuando se importa un curso con una plantilla diferente o con el contenido organizado diferente se mostrará error, es necesario mantener el formato de las plantillas que se encuentran en la *pantalla importar curso desde excel.*
+
+## Tipo Opt mal escrito (por ejemplo "button" con mayúscula, o un valor que no está en la lista permitida).
+
+![](/images/guias/problemas-frecuentes/image4.png)

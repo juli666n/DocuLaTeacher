@@ -1,0 +1,227 @@
+---
+title: "Guía: Montar un curso en el nuevo Dashboard de LaTeacher"
+---
+
+## Crear el curso 
+
+## Una vez hayas iniciado sesión en el Dashboard de La Teacher ve a la pestaña de Cursos y  haz click en el Botón Nuevo Curso. 
+
+                                                                                                                                      ![](/images/guias/montar-un-curso/image1.png)
+
+*Vista de la lista de cursos, con el botón "Nuevo Curso" arriba a la derecha.*
+
+Puedes elegir entre:
+
+* Crear desde 0: armar el curso pregunta por pregunta manualmente en el editor.  
+* Importar archivo: cargar un Excel con todas las preguntas ya armadas (recomendado para cursos largos).
+
+![](/images/guias/montar-un-curso/image2.png)
+
+*Pantalla para elegir entre "Crear desde 0" o "Importar archivo".*
+
+### Importar desde Excel
+
+#### Elegir plantilla según tipo de curso
+
+| Tipo | Cuándo usarla | Detalle |
+| :---- | :---- | :---- |
+| Inbound | El estudiante abre la conversacion generalmente mediante un codigo qr o un link que les proporcionamos | El Excel empieza en la pregunta 1 |
+| Outbound | Inicia con una plantilla HSM de WhatsApp, El estudiante recibe el primer mensaje desde nuestro sistema, para empezar el curso. | El Excel empieza en la pregunta 2, la pregunta 1 la crea la plataforma para asociar la HSM |
+
+Aquí está la plantilla para el curso inbound [plantilla\_curso\_inbound.xlsx](https://docs.google.com/spreadsheets/d/1kS_N6bFnbxmhnTFD0N35LtmDDU29Yi6R/edit?usp=drive_link&ouid=111257584649384375344&rtpof=true&sd=true)
+
+Aquí está la plantilla para el curso outbound [plantilla\_curso\_outbound.xlsx](https://docs.google.com/spreadsheets/d/1I4A57-mbxFjNLsbn4gxya_eq51ijoTuY/edit?usp=drive_link&ouid=111257584649384375344&rtpof=true&sd=true)
+
+#### Llenar el Excel
+
+9 columnas fijas (A–I):
+
+| Col | Campo | Reglas clave |
+| :---- | :---- | :---- |
+| A | Nombre Módulo | Mismo módulo \= mismo nombre  Generalmente el módulo tiene varias preguntas, este campo se repetirá con el mismo nombre tantas veces como preguntas tengas en este módulo.  |
+| B | Pregunta (número) | Único en todo el archivo, independiente del módulo.  . A pesar de que el módulo cambie, el consecutivo de las preguntas no se debe alterar. Si el módulo de Introducción termina en la pregunta 13, el Capítulo 1 empezará con la pregunta 14\.  |
+| C | Texto Pregunta | Aquí va Lo que quieres decirle al estudiante |
+| D | media\_url | En este espacio dejarás disponible el material audiovisual de esta pregunta, si lo tiene. Puedes poner la  el link a Google Drive donde esta guardado con todos los permisos de acceso activos .  Si no necesitas material audiovisual lo dejas Vacío. Si tu pregunta tiene "list" , es decir, lista de opciones,  esta opción no admite media. |
+| E | Tipo Opciones | Aquí escoges o escribes? el tipo de pregunta que usarás.  none (abierta): el usuario manda como respuesta texto, audio, imagen.  Button: Tú escribes las opciones que verá el usuario en los botones. Máximo 3 botones y el texto del botón no debe tener más de 20 caracteres. ) ·  list: El usuario elige su respuesta de una lista interactiva que tú le das. Máximo 10 respuestas, y cada una con máximo 24 caracteres. (máx 10, 24 char) · option: El usuario responde con el número que corresponde a la respuesta que una lista predefinida que tu le das. Máximo 30 opciones de respuesta, y cada respuesta con máximo 60 caracteres.  (máx 30, 60 char) |
+| F | Texto Respuesta | Una fila por opción. En none: vacío \= "Respuesta abierta", o exactamente "Flujo alterno" |
+| G | Tipo Siguiente Pregunta | Aquí colocarás lo que quieres que pase después de responder la pregunta anterior. next\_question : Si quieres que pase al mensaje inmediatamente siguiente specific\_question : Si quieres que vaya a un mensaje que está más adelante en el flujo, para lo cual deberás identificar el número de la pregunta que le corresponde.  finish\_flow Cuando quieres que el flujo acabe después de esta respuesta.  Conectar con flow: Cuando necesitas que esta respuesta conecte tu conversación con otra que ya tienes montada en el dashboard y ya lo has publicado.  |
+| H | ID Siguiente | Este espacio solo se llena si pusiste la opción de “specific question en la columna G” y debes poner el número de la pregunta con la que quieres que se conecte.  Solo si G \= specific\_question: número de pregunta destino |
+| I | Ocultar Respuestas | Aquí tienes dos opciones.  \-Si, cuando quieres que el estudiante escriba algo específico que estará oculto, y solo pasará al siguiente mensaje si lo escribe bien. ( Códigos, palabras clave) \-No, cuando las respuestas están visibles para el estudiante. Solo aplica a option. si/1/true oculta la lista (estudiante escribe el número) |
+
+#### Errores frecuentes:
+
+* Repetir número de pregunta (B) en dos módulos: Tener dos preguntas 8, no funciona.   
+* specific\_question sin destino válido: Identifica bien el numero de la pregunta a la que quieres saltar, si tienes uno que no exista, pues te dará error.   
+* Media en tipo list: Recuerda que si escoges la lista interactiva, no puedes poner material audiovisual  
+* Más de 3 botones o texto muy largo: Los botones son geniales\! pero solo pueden ser tres. Manten en mente el número de caracteres aceptados por cada opción.   
+* ocultar \= si en algo que no sea option. No puedes elegir la opción de ocultar, en preguntas, abiertas, listas o botones.   
+* Outbound: incluir la pregunta 1 en el Excel (debe arrancar en 2).Recuerda que el mensaje 1 de un curso que se envía es la plantila HSM ([guia HSM](https://docs.google.com/document/d/1V4hEMlw_vh8_-F7kNd741Xuh3LOZYPs22QuamzUbVQA/edit?usp=drive_link))
+
+#### Subir y validar
+
+* En el la pantalla de importar curso: nombra el curso, elige el tipo de Curso (Inbound/Outbound) y sube el .xlsx.  
+* Click en Validar archivo. Corrige y reválida si hay errores.
+
+![](/images/guias/montar-un-curso/image3.png)
+
+*Pantalla "Importar Curso desde Excel", con descarga de plantillas y validación.*
+
+#### Qué hacer si es Outbound: crea o asocia la plantilla HSM
+
+[*Ver guia plantillas HSM*](?tab=t.q65bp7rm3ian)
+
+*Ten cuenta que las Plantillas HSM son el mensaje con el que abres tu curso. Para que funcionen bien, hay algunas cosas a tener en cuenta:*   
+*Hablan de algo que el usuario ya hizo: Una inscripción, un registro, un curso que ya conocía. No de algo que le estás ofreciendo.*   
+*Sin emojis en exceso, sin mostrar urgencia ( nada de últimos cupos\!)ni nada que suene a oferta.*   
+*Entre menos variables, mejor, la del nombre abre puertas\! las demás, solo si son muy necesarias. Muchas variables tumban la aprobación.*   
+*Usa un botón de respuesta rápida, corto y claro*.  
+
+* La plantilla HSM no debería incluirse en el Excel como pregunta 1\.  
+* Tras validar, click en “Crear plantilla HSM” (en caso de que sea nueva quedará en estado PENDING hasta que Meta la apruebe) o elige una plantilla HSM existente ya aprobada/pendiente.  
+* Al importar, la plataforma crea automáticamente la pregunta 1 con el contenido de la plantilla HSM.  
+* El curso solo se puede publicar cuando la plantilla HSM esté en estado APPROVED.
+
+## Revisar el contenido importado
+
+* En la columna izquierda “contenido” se ve el listado de módulos con sus preguntas.   
+  Nota: el contenido de una plantilla HSM ya registrada ante Meta no se puede editar desde acá, si hay que cambiar el texto, hay que crear una plantilla HSM nueva.
+
+![](/images/guias/montar-un-curso/image4.png)
+
+*Editor del módulo Bienvenida, con la HSM seleccionada y la previsualización del mensaje.*
+
+## Publicar el curso
+
+* Desde la vista de módulos del curso, click en Publicar (esquina superior derecha).  
+* El sistema valida la plantilla del primer mensaje y activa el curso.  
+* Click en publicar curso en la pantalla de confirmación.
+
+![](/images/guias/montar-un-curso/image5.png)
+
+*Pantalla "Estado de Publicación" con el botón Publicar Curso.*
+
+Posterior a la publicación del curso se debe esperar por la autorización por parte de la teacher para que quede publicado exitosamente 
+
+## Después de publicar
+
+Cuando ya tienes el curso publicado. Tienes 4 cosas que puedes hacer sobre el curso: Son estos botones:   
+
+Versiones y Envíos. 
+
+![](/images/guias/montar-un-curso/image6.png)
+
+Aquí podrás ver: 
+
+\- Todas las versiones que tienes de tu curso, es decir la original y sus modificaciones y a quien has enviado cada versión. 
+
+\- Podrás ver la lista de estudiantes que tienes asociados a este curso ( Ya te explicamos cómo se asocian)
+
+#### Estudiantes
+
+Es en esta pestaña donde vamos a asociar los estudiantes a quienes les vamos a desplegar el curso y tienes tres formas de hacerlo ![](/images/guias/montar-un-curso/image7.png)
+
+* De la compañía: eliges entre estudiantes que ya estaban asociados previamente a tu compañía y marcas los que quieres sumar a este curso.  
+  ![](/images/guias/montar-un-curso/image8.png)  
+* Manual: cargas uno por uno con Nombre, Apellido, Código de país y Teléfono. Si el número ya existe, se actualizan nombre y apellido y se asocia igual al curso.  
+  ![](/images/guias/montar-un-curso/image9.png)  
+* Importar archivo: subes [Plantilla asocio Estudiantes ](https://docs.google.com/spreadsheets/d/1MVPuKCM69HCEnpV_T_dzLsme_51W0AK6/edit?usp=drive_link&ouid=111257584649384375344&rtpof=true&sd=true)esta plantilla con la lista completa de estudiantes de una sola vez (útil para grupos grandes).
+
+#### Enviar
+
+#### 
+
+Enviar el curso a los estudiantes incluidos en el flujo:
+
+![](/images/guias/montar-un-curso/image10.png)
+
+* **Número del teléfono del remitent**e. Si tu empresa tiene un número propio para sus cursos, este aparecerá en la lista desplegable. De lo contrario la elección siempre será: La teacher- no se que mas. .  
+* **Iniciar desde mensaje**: En esta lista te va a aparecer todos los mensajes de tu curso. Si es el primer envío seguro será el primero, pero si vamos a iniciar desde otro lugar de la conversacion, entonces el numero de ese mensaje es que elegirás aquí.   
+* **Destinatarios de este envío:** Aquí vamos a seleccionar los usuarios a quienes enviaremos el curso, y tenemos las mismas opciones que cuando los asociamos.   
+  ![](/images/guias/montar-un-curso/image11.png)  
+  La plantilla que usaremos aquí es esta [plantilla\_envio\_estudiantes](https://docs.google.com/spreadsheets/d/1NGDk3JaOJegmMvRBAiqVY4cvEd07VGkk/edit?usp=drive_link&ouid=111257584649384375344&rtpof=true&sd=true), si decides hacerlo via importar excel, de resto es igual a cuando asociamos.   
+    
+    
+* Click en iniciar envío y te aparecerá un resumen así.   
+* ![](/images/guias/montar-un-curso/image12.png) 
+
+![](/images/guias/montar-un-curso/image13.png)
+
+*Pantalla "Desplegar Workflow", con selección de remitente, mensaje inicial y destinatarios.*
+
+#### Ver reporte
+
+Una vez enviado el curso, esta es la pestaña que nos permite ver las respuestas de los usuarios.
+
+![](/images/guias/montar-un-curso/image14.png)
+
+Puedes filtrar lo que quieres ver fechas, por estudiante, por version del curso. 
+
+Y cada una de las pestañas de abajo, te presentara diferentes aspectos de las conversaciones 
+
+![](/images/guias/montar-un-curso/image15.png)
+
+Desde  Versiones y Envios,  se puede ver el historial de despliegues realizados: cuántos destinatarios tuvo cada uno, cuántos mensajes se enviaron y cuántos fallaron.
+
+* Cada fila muestra el nombre del curso, versión del flujo, remitente y el conteo de Enviados / Fallidos.  
+  ![](/images/guias/montar-un-curso/image16.png)
+
+![](/images/guias/montar-un-curso/image17.png)
+
+*Reporte del curso, pestaña Resumen, con datos de registrados/inician/terminan.*
+
+## Enviar el curso
+
+Una vez publicado, enviar el curso a los estudiantes se hace desde el botón Desplegar. Antes de mandar conviene tener clara una cosa: solo le puede llegar el curso a los estudiantes que estén asociados a él, si la persona que necesitas no aparece en la lista, primero hay que asociarla.
+
+### Desplegar a estudiantes ya asociados
+
+* Click en desplegar.  
+* Elegir el número remitente (la línea de WhatsApp desde la que se envía).  
+* Elegir desde qué mensaje arranca el envío (normalmente el mensaje \#1 con la plantilla HSM).  
+* Seleccionar destinatarios: la lista se arma automáticamente con los estudiantes ya asociados al curso. Puedes buscarlos por nombre o teléfono, o click en "Seleccionar todos".  
+* Revisar las variables del flujo (ej. \{\{nombre\}\}) — se autocompletan con la información de cada estudiante.  
+* Click en iniciar envío.
+
+![](/images/guias/montar-un-curso/image18.png)
+
+*Pantalla "Desplegar Workflow": remitente, mensaje inicial, destinatarios y variables.*
+
+### Asociar nuevos estudiantes al curso
+
+Si la persona a la que quieres enviarle el curso todavía no aparece en la lista de destinatarios, hay que asociarla primero desde la pantalla del flujo:
+
+* Click en flujo y despliegues (desde el curso publicado).
+
+![](/images/guias/montar-un-curso/image19.png)
+
+*Pantalla "Flujo del curso", pestaña Flujo y despliegues, con el historial de despliegues realizados.*
+
+* Ir a la pestaña Estudiantes del curso.  
+* Click en asociar estudiantes.
+
+![](/images/guias/montar-un-curso/image20.png)
+
+*Pestaña "Estudiantes del curso", con los estudiantes ya asociados y el botón Asociar estudiantes.*
+
+En la pantalla hay 3 formas de asociar estudiantes:
+
+* De la compañía: eliges entre los estudiantes que ya están registrados en la compañía y marcas los que quieres sumar a este curso.  
+* Manual: cargas uno por uno con Nombre, Apellido, Código de país y Teléfono. Si el número ya existe, se actualizan nombre y apellido y se asocia igual al curso.  
+* Importar archivo: subes una plantilla con la lista completa de estudiantes de una sola vez (útil para grupos grandes).
+
+![](/images/guias/montar-un-curso/image21.png)
+
+*Pantalla "Asociar estudiantes", pestaña De la compañía.*
+
+![](/images/guias/montar-un-curso/image22.png)
+
+*Pantalla "Asociar estudiantes", pestaña Manual.*
+
+Una vez asociados, esos estudiantes ya quedan disponibles para seleccionarlos como destinatarios la próxima vez que despliegues el curso.
+
+### Seguimiento de los envíos
+
+Desde el apartado *versiones y envíos* se puede ver el historial de despliegues realizados: cuántos destinatarios tuvo cada uno, cuántos mensajes se enviaron y cuántos fallaron.
+
+* Cada fila muestra el nombre del despliegue, versión del flujo, remitente y el conteo de Enviados / Fallidos.  
+* Con Ver flujo o detalle puedes entrar a revisar un despliegue puntual.
