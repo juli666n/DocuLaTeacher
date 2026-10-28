@@ -325,14 +325,33 @@ def update_nav(docs_json: Path, pages: list[str]) -> None:
             for value in node:
                 walk(value)
 
+    def first_container(node):
+        """Primera lista de 'groups' o 'pages' de la navegación (sirve con tabs, anchors, idiomas…)."""
+        if isinstance(node, dict):
+            for key in ("groups", "pages"):
+                if isinstance(node.get(key), list):
+                    return node[key]
+            for key, value in node.items():
+                if key == "global":  # links globales del header, no es el menú
+                    continue
+                found = first_container(value)
+                if found is not None:
+                    return found
+        elif isinstance(node, list):
+            for value in node:
+                found = first_container(value)
+                if found is not None:
+                    return found
+        return None
+
     nav = data.setdefault("navigation", {})
     walk(nav)
     if not state["found"]:
-        if isinstance(nav.get("groups"), list):
-            nav["groups"].append({"group": NAV_GROUP, "pages": pages})
-            state["changed"] = True
-        else:
-            sys.exit(f'No encontré el grupo "{NAV_GROUP}" en {docs_json.name}. Créalo dentro de "navigation" y vuelve a correr.')
+        container = first_container(nav)
+        if container is None:
+            nav["groups"] = container = []
+        container.append({"group": NAV_GROUP, "pages": pages})
+        state["changed"] = True
     if state["changed"]:
         docs_json.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         print(f"  ✓ {docs_json.name}: grupo \"{NAV_GROUP}\" actualizado")
