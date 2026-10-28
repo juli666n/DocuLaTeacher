@@ -1,0 +1,62 @@
+name: Sync guías desde Drive
+
+on:
+  schedule:
+    - cron: "17 11 * * *"   # todos los días 6:17 a. m. hora Bogotá (11:17 UTC)
+  workflow_dispatch:         # botón "Run workflow" para sincronizar ya
+
+permissions:
+  contents: write   # para hacer commit de las guías
+  id-token: write   # para autenticarse con Google sin llaves (Workload Identity)
+
+concurrency:
+  group: sync-guias
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      # Sin llaves: GitHub se identifica ante Google y recibe un token de 1 hora,
+      # solo con permiso de lectura en Drive. Se salta si usas llave JSON.
+      - name: Autenticar con Google
+        id: auth
+        if: ${{ vars.GCP_WIF_PROVIDER != '' }}
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WIF_PROVIDER }}
+          service_account: ${{ vars.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_scopes: https://www.googleapis.com/auth/drive.readonly
+          create_credentials_file: false
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: scripts/requirements.txt
+
+      - name: Instalar dependencias
+        run: pip install -r scripts/requirements.txt
+
+      - name: Bajar guías de Drive y convertir
+        env:
+          GOOGLE_ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          DRIVE_FOLDER_ID: ${{ vars.DRIVE_FOLDER_ID }}
+        run: python scripts/sync_drive.py
+
+      - name: Commit si hubo cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- . ':(exclude)gha-creds-*.json'
+          if git diff --cached --quiet; then
+            echo "Sin cambios en las guías."
+            exit 0
+          fi
+          git commit -m "sync: guías desde Drive"
+          git push
